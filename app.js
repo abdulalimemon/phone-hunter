@@ -15,10 +15,11 @@ const displaySearchResults = searchResults => {
 
     const cardAllProduct = document.getElementById("all-product");
     searchResults.forEach(result => {
+        
         const div = document.createElement("div");
         div.classList.add("col");
         div.innerHTML = `
-            <div class="card shadow-lg rounded text-center">
+            <div class="card shadow-lg rounded text-center" onclick="loadSingleProduct('${result.slug}')">
                 <img src="${result.image}" class="card-img-top py-3 w-75 mx-auto" alt="Image">
                 <div class="card-body">
                     <h4 class="card-title">${result.phone_name}</h4>
@@ -27,5 +28,36 @@ const displaySearchResults = searchResults => {
             </div>
         `;
         cardAllProduct.appendChild(div);
+        div.slice(1, 20);
     });
 }
+const loadSingleProduct = product => {
+    const url = `https://openapi.programming-hero.com/api/phone/${product}`;
+    console.log(url);
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displaySingleProduct(data.data));
+}
+const displaySingleProduct = singleProduct => {
+    const cardSingleProduct = document.getElementById("single-product");
+    const div = document.createElement("div");
+    div.classList.add("row");
+    div.innerHTML = `
+        <div class="col-12 col-md-4">
+            <div class="text-center">
+                <img src="${singleProduct.image}" class="w-75 mx-auto py-4" alt="Image">
+            </div>
+        </div>
+        <div class="col-12 col-md-8">
+            <div class="card-body">
+                <h4 class="card-title">${singleProduct.name}</h4>
+            </div>
+        </div>
+    `;
+    cardSingleProduct.appendChild(div);
+}
+
+
+
+
+
