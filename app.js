@@ -12,23 +12,22 @@ const searchPhone = () => {
 
 const displaySearchResults = searchResults => {
     console.log(searchResults);
-
     const cardAllProduct = document.getElementById("all-product");
     searchResults.forEach(result => {
-        
+        // result.slice(0,20);
         const div = document.createElement("div");
         div.classList.add("col");
         div.innerHTML = `
-            <div class="card shadow-lg rounded text-center" onclick="loadSingleProduct('${result.slug}')">
+            <div class="card shadow-lg rounded text-center">
                 <img src="${result.image}" class="card-img-top py-3 w-75 mx-auto" alt="Image">
                 <div class="card-body">
                     <h4 class="card-title">${result.phone_name}</h4>
                     <h5 class="card-title"><span class="fw-bold">Brand</span> ${result.brand}</h5>
+                    <button class="Btn btn-danger py-2 px-5 my-2" onclick="loadSingleProduct('${result.slug}')">Details</button>
                 </div>
             </div>
         `;
         cardAllProduct.appendChild(div);
-        div.slice(1, 20);
     });
 }
 const loadSingleProduct = product => {
