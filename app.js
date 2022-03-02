@@ -53,7 +53,6 @@ const displaySearchResults = searchResults => {
 }
 const loadSingleProduct = product => {
     const url = `https://openapi.programming-hero.com/api/phone/${product}`;
-    console.log(url);
     fetch(url)
         .then(res => res.json())
         .then(data => displaySingleProduct(data.data));
@@ -64,6 +63,7 @@ const displaySingleProduct = singleProduct => {
     cardSingleProduct.textContent ="";
     // Single Product details card
     const div = document.createElement("div");
+
     div.classList.add("row");
     div.innerHTML = `
         <div class="col-12 col-md-4">
@@ -74,15 +74,25 @@ const displaySingleProduct = singleProduct => {
         <div class="col-12 col-md-8">
             <div class="card-body">
                 <h3 class="card-title">${singleProduct.name}</h3>
-                <h5 class="card-title">Release Date: ${singleProduct.releaseDate}</h5>
-                <p class="card-title">Release Date: ${singleProduct.Bluetooth}</p>
+                <h5 class="card-title">Release Date: ${singleProduct.releaseDate ? singleProduct.releaseDate : 'Information Not Available' }</h5>
+                <h4 class="card-title">Main Features</h4>
+                <p class="card-title"> Storage : ${singleProduct.mainFeatures.storage ? singleProduct.mainFeatures.storage : 'Information Not Available' } </p>
+                <p class="card-title"> Display Size : ${singleProduct.mainFeatures.displaySize ? singleProduct.mainFeatures.displaySize : 'Information Not Available' } </p>
+                <p class="card-title"> ChipSet : ${singleProduct.mainFeatures.chipSet ? singleProduct.mainFeatures.chipSet : 'Information Not Available' } </p>
+                <p class="card-title"> Memoey : ${singleProduct.mainFeatures.memory ? singleProduct.mainFeatures.memory : 'Information Not Available' } </p>
+
+                <h4 class="card-title">Sensors</h4>
+                <p class="card-title"> Sensors : ${ Object.values(singleProduct.mainFeatures.sensors) ? Object.values(singleProduct.mainFeatures.sensors) : 'Information Not Available' } </p>
+
+
                 <p class="card-title">Release Date: ${singleProduct.others.Bluetooth}</p>
             </div>
         </div>
     `;
     cardSingleProduct.appendChild(div);
-}
 
+
+}
 
 
 
